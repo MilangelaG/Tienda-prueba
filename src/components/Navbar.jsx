@@ -17,12 +17,12 @@ const Navbar = () => {
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Mi perfil
+                                    Cuenta
                                 </Link>
                                 <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="#"><i className="fa-solid fa-user"></i> Perfil</Link></li>
-                                    <li><Link className="dropdown-item" to="#">🛒Mi carrito</Link></li>
-                                    <li><Link className="dropdown-item" to="#">Cerrar sesión</Link></li>
+                                    <li><Link className="dropdown-item" to="Login"><i className="fa-solid fa-user"></i> Iniciar sesión</Link></li>
+                                    {/* <li><Link className="dropdown-item" to="#">🛒Mi carrito</Link></li>
+                                    <li><Link className="dropdown-item" to="#">Cerrar sesión</Link></li> */}
                                 </ul>
                             </li>            
                         </ul>
