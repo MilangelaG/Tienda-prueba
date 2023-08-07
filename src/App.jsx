@@ -5,7 +5,7 @@ import Main from './components/Main'
 import Footer from './components/Footer'
 import Perfil from './Pages/Perfil';
 import Detalles from './Pages/Detalles';
-import Carrito from './Pages/Carrito';
+import Carrito from './Pages/CarritoInfo';
 import Login from './Pages/Login';
 import { funkos } from './data/DataTest'
 import { MyContext } from './context/MyContext';
@@ -13,18 +13,19 @@ import { MyContext } from './context/MyContext';
 
 const App = () => {
   const [dataFunkos, setDataFunkos] = useState(funkos)
+  const [cart, setCart] = useState([])
 
   return (
     <>
-      <MyContext.Provider value={{dataFunkos, setDataFunkos}}>
+      <MyContext.Provider value={{dataFunkos, setDataFunkos, cart, setCart}}>
         <Navbar />
 
 
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='Perfil' element={<Perfil />} />
-          <Route path="Detalles/:id" element={<Detalles />} />
-          <Route path="Carrito" element={<Carrito />} />
+          <Route path="/Detalles/:id" element={<Detalles />} />
+          <Route path="carrito" element={<Carrito />} />
           <Route path="Login" element={<Login />} />
           <Route path='*' element="no encontrado" />
         </Routes>

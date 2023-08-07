@@ -10,9 +10,9 @@ const Funkos = ({ funkos }) => {
         navigate(`detalles/${funkos.id}`)
     }
 
-    /* const carrito = () => {
-        navigate
-    } */
+    const carrito = () => {
+        navigate(`carrito/${funkos.id}`)
+    }
 
     return (
         <main className="m-2">
@@ -24,7 +24,7 @@ const Funkos = ({ funkos }) => {
                         <p className="card-text">{funkos.detalles}</p>
                         <div>
                             <a className="btn btn-primary" onClick={onClick}>Ver Detalles</a>
-                            <a className="btn btn-primary" /* onClick={carrito} */>Añadir al Carrito</a>
+                            <a className="btn btn-primary" onClick={carrito}>Añadir al Carrito</a>
                         </div>
                     </div>
                 </div>

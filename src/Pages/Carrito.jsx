@@ -1,10 +1,11 @@
 import React from 'react'
+import CarritoInfo from './CarritoInfo'
 
 const Carrito = () => {
   return (
-    <div>
-      <h1>carrito</h1>
-    </div>
+    <>
+      <CarritoInfo/>
+    </>
   )
 }
 

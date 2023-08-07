@@ -7,7 +7,7 @@ const Main = () => {
     const { dataFunkos, setDataFunkos } = useContext(MyContext)
     return (
         <div className='container m-2'>
-            <div className='d-flex flex-row'>
+            <div className='d-flex flex-row flex-wrap'>
                 {dataFunkos.map(funkos => <Funkos key={funkos.id} funkos={funkos} />)}
             </div>
 
