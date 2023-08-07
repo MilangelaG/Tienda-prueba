@@ -7,27 +7,36 @@ import Perfil from './Pages/Perfil';
 import Detalles from './Pages/Detalles';
 import Carrito from './Pages/Carrito';
 import Login from './Pages/Login';
+import { funkos } from './data/DataTest'
+import { MyContext } from './context/MyContext';
+
 
 const App = () => {
-  /* const [Funkos, setFunkos] = useState (Funkos) */
+  const [dataFunkos, setDataFunkos] = useState(funkos)
 
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Main/>} />
-        <Route path='Perfil' element={<Perfil/>}/>
-        <Route path="Detalles" element={<Detalles/>}/>
-        <Route path="Carrito" element={<Carrito/>}/>
-        <Route path="Login" element={<Login/>}/>
-        <Route path='*' element="no encontrado"/>
-      </Routes>
-
-      
+      <MyContext.Provider value={{dataFunkos, setDataFunkos}}>
+        <Navbar />
 
 
-     
-      <Footer />
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='Perfil' element={<Perfil />} />
+          <Route path="Detalles/:id" element={<Detalles />} />
+          <Route path="Carrito" element={<Carrito />} />
+          <Route path="Login" element={<Login />} />
+          <Route path='*' element="no encontrado" />
+        </Routes>
+
+
+
+
+
+        <Footer />
+
+
+      </MyContext.Provider>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Detalles = () => {
+const Detalles = ({funkos}) => {
   return (
     <div>
       <h1>detalles</h1>
