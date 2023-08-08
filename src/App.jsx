@@ -1,23 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Main from './components/Main'
-import Footer from './components/Footer'
 import Perfil from './Pages/Perfil';
 import Detalles from './Pages/Detalles';
-import Carrito from './Pages/CarritoInfo';
+import Carrito from './Cartcontent/Carrito';
 import Login from './Pages/Login';
-import { funkos } from './data/DataTest'
 import { MyContext } from './context/MyContext';
 
 
 const App = () => {
-  const [dataFunkos, setDataFunkos] = useState(funkos)
-  const [cart, setCart] = useState([])
+  const [dataFunkos, setDataFunkos] = useState([]) //productos
+  const [cart, setCart] = useState([])  // carrito
+  const [total, setTotal] = useState(0) //total
+
+  const api = "./src/data/DataTest.json"
+
+  const getDataFunkos = async()=>{
+    const response = await fetch(api)
+    let dataFunkos = await response.json()
+
+    dataFunkos=dataFunkos.map((funkos)=>({
+      id: funkos.id,
+      nombre: funkos.nombre,
+      image: funkos.image,
+      detalles: funkos.detalles,
+      precio: funkos.precio
+    }))
+    setDataFunkos(dataFunkos)
+  }
+
+  useEffect(()=>{
+    getDataFunkos()
+  },[])
 
   return (
     <>
-      <MyContext.Provider value={{dataFunkos, setDataFunkos, cart, setCart}}>
+      <MyContext.Provider value={{ dataFunkos, setDataFunkos, cart, setCart, total, setTotal }}>
         <Navbar />
 
 
@@ -25,16 +44,10 @@ const App = () => {
           <Route path='/' element={<Main />} />
           <Route path='Perfil' element={<Perfil />} />
           <Route path="/Detalles/:id" element={<Detalles />} />
-          <Route path="carrito" element={<Carrito />} />
+          <Route path="/Carrito" element={<Carrito />} />
           <Route path="Login" element={<Login />} />
           <Route path='*' element="no encontrado" />
-        </Routes>
-
-
-
-
-
-        <Footer />
+        </Routes>   
 
 
       </MyContext.Provider>

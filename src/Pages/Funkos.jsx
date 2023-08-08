@@ -1,36 +1,58 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { MyContext } from '../context/MyContext'
 
 
 const Funkos = ({ funkos }) => {
 
+    const { cart, setCart, dataFunkos } = useContext(MyContext)
+
+    const addFunko = (id) => {
+        setCart([...cart, funkos])
+
+        console.log(funkos)
+    }
+
     const navigate = useNavigate()
 
-    const onClick = () => {
+    const details = () => {
         navigate(`detalles/${funkos.id}`)
     }
 
-    const carrito = () => {
-        navigate(`carrito/${funkos.id}`)
-    }
 
     return (
-        <main className="m-2">
-            <div className='d-flex flex-row'>
+        <main className="m-2" key={funkos.id}>
+            <div className="d-flex flex-row">
                 <div className="card" style={{ width: "18rem" }}>
-                    <img src={funkos.image} className="card-img-top" alt="Descripción de la imagen" />
+                    <img
+                        src={funkos.image}
+                        className="card-img-top"
+                        alt={funkos.nombre}
+                    />
                     <div className="card-body">
                         <h5 className="card-title">{funkos.nombre}</h5>
+                        <h4 className="text-primary">${funkos.precio}</h4>
                         <p className="card-text">{funkos.detalles}</p>
-                        <div>
-                            <a className="btn btn-primary" onClick={onClick}>Ver Detalles</a>
-                            <a className="btn btn-primary" onClick={carrito}>Añadir al Carrito</a>
+                        <div className="d-grid gap-2">
+                            <button className="btn btn-primary" onClick={details}>
+                                Ver Detalles
+                            </button>
+                            <button
+                                className="btn btn-success"
+                                onClick={() => addFunko(funkos.id)}
+                            >
+                                Añadir al Carrito
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
     )
 }
+
+
+
 
 export default Funkos
