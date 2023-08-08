@@ -5,15 +5,6 @@ const CarritoInfo = () => {
 
   const { cart } = useContext(MyContext)
 
-  /* const addFunko = (id) => {
-    setCart([...cart, funko])
-  } */
-
-  /* const navigate = useNavigate()
-  const carrito = ()=> {
-    navigate(`detalles/${funko.id}`)
-  } */
-
 
   return cart.map((funkos) => {
     return (

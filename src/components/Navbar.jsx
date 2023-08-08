@@ -26,6 +26,11 @@ const Navbar = () => {
                                 Home
                             </Link>
                         </li>
+                        <li>
+                            <Link className="nav-link" to="Carrito">
+                                🛒 Mi carrito
+                            </Link>
+                        </li>
                         <li className="nav-item dropdown">
                             <Link
                                 className="nav-link dropdown-toggle"
@@ -42,11 +47,7 @@ const Navbar = () => {
                                         <i className="fa-solid fa-user"></i> Iniciar sesión
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link className="dropdown-item" to="Carrito">
-                                        🛒 Mi carrito
-                                    </Link>
-                                </li>
+
                                 <li>
                                     <Link className="dropdown-item" to="#">
                                         Cerrar sesión

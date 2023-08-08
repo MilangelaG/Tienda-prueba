@@ -22,7 +22,7 @@ const Funkos = ({ funkos }) => {
 
     return (
         <main className="m-2" key={funkos.id}>
-            <div className="d-flex flex-row">
+            <div className=" container d-flex flex-row">
                 <div className="card" style={{ width: "18rem" }}>
                     <img
                         src={funkos.image}
