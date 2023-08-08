@@ -5,19 +5,29 @@ import { MyContext } from '../context/MyContext'
 
 const Funkos = ({ funkos }) => {
 
-    const { cart, setCart, dataFunkos } = useContext(MyContext)
+    const { cart, setCart, dataFunkos, setDataFunkos } = useContext(MyContext)
 
     const addFunko = (id) => {
-        setCart([...cart, funkos])
 
+        const funkoRepeat = cart.find((item) => item.id === funkos.id);
+
+        if (funkoRepeat) {
+            setCart(cart.map((item) => (item.id === funkos.id ? {
+                ...funkos, quanty: funkoRepeat.quanty + 1
+            } : item)))
+        }else{
+            setCart([...cart, funkos])
+        }        
         console.log(funkos)
-    }
+    };
+
 
     const navigate = useNavigate()
 
     const details = () => {
         navigate(`detalles/${funkos.id}`)
-    }
+    };
+
 
 
     return (

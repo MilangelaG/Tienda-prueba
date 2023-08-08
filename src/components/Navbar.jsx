@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import IconCounter from '../Cartcontent/IconCounter'
+import { MyContext } from '../context/MyContext'
 
 const Navbar = () => {
+    
+    const { cart } = useContext(MyContext)
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -28,8 +33,11 @@ const Navbar = () => {
                         </li>
                         <li>
                             <Link className="nav-link" to="Carrito">
-                                🛒 Mi carrito
+                                🛒
                             </Link>
+                        </li>
+                        <li>
+                            {cart.length > 0 ? <IconCounter /> : null}
                         </li>
                         <li className="nav-item dropdown">
                             <Link

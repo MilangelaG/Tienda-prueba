@@ -7,7 +7,7 @@ const CarritoTotal = () => {
 
     const {cart} = useContext(MyContext)
 
-    const total = cart.reduce((acc, el)=> acc + el.precio, 0);
+    const total = cart.reduce((acc, el)=> acc + el.precio * el.quanty, 0);
 
   return (
     <div>
