@@ -1,11 +1,22 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, Navigate } from 'react-router-dom'
 import IconCounter from '../Cartcontent/IconCounter'
 import { MyContext } from '../context/MyContext'
 
 const Navbar = () => {
     
     const { cart } = useContext(MyContext)
+    const [user, setUser] = useState("");
+    useEffect( () => {
+        setUser(localStorage.getItem('usuario'))
+    }, [])
+
+    const cerrarSesion = () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("usuario")
+        alert("Adios")
+        Navigate("/")
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,6 +37,9 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <div className="nav-link"> {user} </div>
+                        </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/">
                                 Home
@@ -52,12 +66,13 @@ const Navbar = () => {
                             <ul className="dropdown-menu">
                                 <li>
                                     <Link className="dropdown-item" to="Login">
-                                        <i className="fa-solid fa-user"></i> Iniciar sesión
+                                        <i className="fa-solid fa-user"></i>
+                                        Iniciar sesión
                                     </Link>
                                 </li>
 
                                 <li>
-                                    <Link className="dropdown-item" to="#">
+                                    <Link className="dropdown-item" onClick={cerrarSesion}>
                                         Cerrar sesión
                                     </Link>
                                 </li>

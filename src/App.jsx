@@ -6,7 +6,7 @@ import Perfil from './Pages/Perfil';
 import Detalles from './Pages/Detalles';
 import Carrito from './Cartcontent/Carrito';
 import Login from './Pages/Login';
-import { MyContext } from './context/MyContext';
+import CrearCuenta from './Pages/CrearCuenta';
 import DataProvider from './context/MyContext';
 
 
@@ -26,6 +26,7 @@ const App = () => {
         <Route path="/Detalles/:id" element={<Detalles />} />
         <Route path="/Carrito" element={<Carrito />} />
         <Route path="Login" element={<Login />} />
+        <Route path="/CrearCuenta" element={<CrearCuenta />} />
         <Route path='*' element="no encontrado" />
       </Routes>
 
