@@ -24,6 +24,9 @@ const Navbar = () => {
                 <Link className="navbar-brand" to="/">
                     Tienda
                 </Link>
+                <Link className="navbar-brand" to="/Pedidos">
+                    Pedidos
+                </Link>
                 <button
                     className="navbar-toggler"
                     type="button"
