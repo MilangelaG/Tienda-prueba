@@ -7,6 +7,7 @@ import Detalles from './Pages/Detalles';
 import Carrito from './Cartcontent/Carrito';
 import Login from './Pages/Login';
 import CrearCuenta from './Pages/CrearCuenta';
+import Pedidos from './Pages/Pedidos';
 import DataProvider from './context/MyContext';
 
 
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/Carrito" element={<Carrito />} />
         <Route path="Login" element={<Login />} />
         <Route path="/CrearCuenta" element={<CrearCuenta />} />
+        <Route path="/Pedidos" element={<Pedidos />} />
         <Route path='*' element="no encontrado" />
       </Routes>
 
