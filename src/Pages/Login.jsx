@@ -1,10 +1,13 @@
 import React from "react";
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useContext } from "react";
 import { MyContext } from '../context/MyContext'
 
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { setUser } = useContext(MyContext)
+
   const [usuario, setUsuarioLocal] = useState({ email: "", password: "" });
 
   const handleSetUsuario = ({ target: { value, name } }) => {
@@ -21,8 +24,8 @@ const Login = () => {
     if (!email || !password) return alert("Email y password obligatorias");
     alert("Usuario identificado con éxito 😀");
     localStorage.setItem("token", dataUser.token);
-    localStorage.setItem("usuario", email);
-    Navigate("/")
+    setUser(email);
+    navigate("/")
   };
 
   const handleSubmit = (event) => {

@@ -6,6 +6,7 @@ const DataProvider = ({ children }) => {
     const [dataFunkos, setDataFunkos] = useState([]) //productos
     const [dataPedidos, setDataPedidos] = useState([]) //pedidos
     const [cart, setCart] = useState([])  // carrito
+    const [user, setUser] = useState("");
     /* const [total, setTotal] = useState(0) */ //total
 
 
@@ -27,6 +28,9 @@ const DataProvider = ({ children }) => {
         }))
         setDataFunkos(dataFunkos)
     }
+    const loggedIn = () => {
+        return (user !== null && user.length > 0)
+    }
 
     const getDataPedidos = async () => {
         const response = await fetch(api_pedidos)
@@ -45,6 +49,7 @@ const DataProvider = ({ children }) => {
     useEffect(() => {
         getDataFunkos()
         getDataPedidos()
+        setUser(localStorage.getItem('usuario'))
     }, [])
 
     const addFunko = (funkos) => {
@@ -62,7 +67,19 @@ const DataProvider = ({ children }) => {
 
 
     return (
-        <MyContext.Provider value={{ dataFunkos, setDataFunkos, cart, setCart, addFunko, dataPedidos }}>{children}</MyContext.Provider>
+        <MyContext.Provider value={
+            {
+                dataFunkos,
+                setDataFunkos,
+                cart,
+                setCart,
+                addFunko,
+                dataPedidos,
+                user,
+                setUser,
+                loggedIn,
+            }
+        }>{children}</MyContext.Provider>
     )
 };
 

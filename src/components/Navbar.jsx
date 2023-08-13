@@ -1,21 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import IconCounter from '../Cartcontent/IconCounter'
 import { MyContext } from '../context/MyContext'
 
 const Navbar = () => {
-    
-    const { cart } = useContext(MyContext)
-    const [user, setUser] = useState("");
-    useEffect( () => {
-        setUser(localStorage.getItem('usuario'))
-    }, [])
+    const navigate = useNavigate();
+    const { cart, user, loggedIn, setUser } = useContext(MyContext)
 
     const cerrarSesion = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("usuario")
         alert("Adios")
-        Navigate("/")
+        setUser("")
+        navigate("/")
     }
 
     return (
@@ -24,9 +21,11 @@ const Navbar = () => {
                 <Link className="navbar-brand" to="/">
                     Tienda
                 </Link>
-                <Link className="navbar-brand" to="/Pedidos">
-                    Pedidos
-                </Link>
+                { loggedIn() ?
+                    <Link className="navbar-brand" to="/Pedidos">
+                        Pedidos
+                    </Link> : null
+                }
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -67,18 +66,20 @@ const Navbar = () => {
                                 Cuenta
                             </Link>
                             <ul className="dropdown-menu">
-                                <li>
-                                    <Link className="dropdown-item" to="Login">
-                                        <i className="fa-solid fa-user"></i>
-                                        Iniciar sesión
-                                    </Link>
-                                </li>
-
-                                <li>
-                                    <Link className="dropdown-item" onClick={cerrarSesion}>
-                                        Cerrar sesión
-                                    </Link>
-                                </li>
+                                {loggedIn() ?
+                                    <li>
+                                        <Link className="dropdown-item" onClick={cerrarSesion}>
+                                            Cerrar sesión
+                                        </Link>
+                                    </li>
+                                    :
+                                    <li>
+                                        <Link className="dropdown-item" to="Login">
+                                            <i className="fa-solid fa-user"></i>
+                                            Iniciar sesión
+                                        </Link>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     </ul>
