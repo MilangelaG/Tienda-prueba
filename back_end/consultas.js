@@ -1,5 +1,6 @@
 const { Pool } = require('pg')
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 
 const pool = new Pool({
     host: 'localhost',
@@ -23,4 +24,26 @@ const createUser = async(userData) => {
     return result.rowCount == 1
 }
 
-module.exports = { createUser }
+const searchUser = async(email) => {
+    const select = "SELECT * FROM usuarios WHERE email = $1";
+    var result = await pool.query(select, [email])
+    result = result.rows[0]
+    return result
+}
+
+const loginUser = async(userData) => {
+    const passwordHash = toHash(userData.password)
+    const values = [userData.email, passwordHash];
+    const select = "SELECT * FROM usuarios WHERE email = $1 AND password = $2;";
+    result = await pool.query(select, values)
+    return result.rowCount == 1
+}
+
+
+const resetear = async() => {
+    var data = fs.readFileSync('init.sql', 'utf8')
+    result = await (pool.query(data))
+    return true
+}
+
+module.exports = { createUser, loginUser, searchUser, resetear }

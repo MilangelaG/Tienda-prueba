@@ -1,15 +1,13 @@
-\c postgres
-DROP DATABASE IF EXISTS tienda_online;
-CREATE DATABASE tienda_online;
-\c tienda_online;
-
+DROP TABLE IF EXISTS usuarios cascade;
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     email VARCHAR(50) NOT NULL,
     password VARCHAR(60) NOT NULL,
-    direccion VARCHAR(250)
+    direccion VARCHAR(250),
+    UNIQUE(email)
 );
 
+DROP TABLE IF EXISTS productos cascade;
 CREATE TABLE productos (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
@@ -17,9 +15,11 @@ CREATE TABLE productos (
     descripcion VARCHAR(250),
     tiempo_de_envio INTEGER NOT NULL,
     dimensiones VARCHAR(50),
-    img_path VARCHAR(250) NOT NULL
+    img_path VARCHAR(250) NOT NULL,
+    UNIQUE(nombre)
 );
 
+DROP TABLE IF EXISTS pedidos cascade;
 CREATE TABLE pedidos (
     id SERIAL PRIMARY KEY,
     monto_pagado INTEGER NOT NULL,
@@ -32,3 +32,4 @@ CREATE TABLE pedidos (
 SELECT * FROM productos;
 SELECT * FROM usuarios;
 SELECT * FROM pedidos;
+

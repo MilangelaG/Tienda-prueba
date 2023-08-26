@@ -1,7 +1,13 @@
 const express = require('express');
 const { 
-    createUser
-} = require('./consultas')
+    createUser,
+    loginUser,
+    searchUser
+} = require('./consultas');
+
+const { 
+    crearToken
+} = require('./token');
 const app = express();
 
 app.listen(3001, console.log("-- Server ON --"))
@@ -25,15 +31,23 @@ app.get("/listado_pedidos", (req, res) => {
     res.status(200).send(pedidos)
 })
 
-app.post("/login", (req, res) => {
-    login = {
-        "token": "HEXADECIMALHASH",
-        "user": {
-            "id": 1,
-            "email": "example@example.com",
+app.post("/login", async (req, res) => {
+    let data = req.body;
+    var userExist = loginUser(data);
+    if (userExist) {
+        var token = await(crearToken(data.email));
+        var user = await(searchUser(data.email));
+        response = {"token": token, "user": user}
+        res.statusCode = 202;
+        res.send(response);
+    }else{
+        res.statusCode = 400;
+        response = {
+            "status_message": "Ops algo salio mal, revisa los datos enviados",
+            "status": "fallido",
         }
+        res.send(response);
     }
-    res.status(201).send(login)
 })
 
 app.post("/crear_cuenta", (req, res) => {
