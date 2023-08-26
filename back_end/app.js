@@ -1,4 +1,7 @@
 const express = require('express');
+const { 
+    createUser
+} = require('./consultas')
 const app = express();
 
 app.listen(3001, console.log("-- Server ON --"))
@@ -34,11 +37,23 @@ app.post("/login", (req, res) => {
 })
 
 app.post("/crear_cuenta", (req, res) => {
-    response = {
-        "status_message": "Todo un exito la operacion",
-        "status": "exitoso",
+    let data = req.body;
+    var usuarioCreado = createUser(data);
+    if (usuarioCreado) {
+        res.statusCode = 201;
+        response = {
+            "status_message": "Todo un exito la operacion",
+            "status": "exitoso",
+        }
+        res.send(response);
+    }else{
+        res.statusCode = 400;
+        response = {
+            "status_message": "Ops algo salio mal, revisa los datos enviados",
+            "status": "fallido",
+        }
+        res.send(response);
     }
-    res.status(201).send(response)
 });
 
 app.post("/crear_pedido", (req, res) => {
