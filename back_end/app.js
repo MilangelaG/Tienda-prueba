@@ -7,7 +7,7 @@ const {
     searchPedidos,
     searchProductos,
 } = require('./consultas');
-
+var cors = require('cors')
 const { 
     crearToken,
     verificarToken,
@@ -16,6 +16,7 @@ const app = express();
 
 app.listen(3001, console.log("-- Server ON --"))
 
+app.use(cors())
 app.use(express.json())
 
 app.get("/listar_productos", async(_req, res) => {
@@ -45,8 +46,8 @@ app.get("/listar_pedidos", async(req, res) => {
 
 app.post("/login", async (req, res) => {
     let data = req.body;
-    var userExist = loginUser(data);
-    if (userExist) {
+    var userExist = await(loginUser(data));
+    if (userExist === true) {
         var token = await(crearToken(data.email));
         var user = await(searchUser(data.email));
         response = {"token": token, "user": user}

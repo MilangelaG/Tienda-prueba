@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const MyContext = createContext()
 
@@ -11,20 +12,20 @@ const DataProvider = ({ children }) => {
 
 
 
-    const api = "./src/data/DataTest.json";
+    const api = "http://localhost:3001/listar_productos";
     const api_pedidos = "./src/data/DataPedidosTest.json";
 
     const getDataFunkos = async () => {
-        const response = await fetch(api)
-        let dataFunkos = await response.json()
+        const response = await axios.get(api)
+        let dataFunkos = response.data
 
         dataFunkos = dataFunkos.map((funkos) => ({
             id: funkos.id,
             nombre: funkos.nombre,
-            image: funkos.image,
-            detalles: funkos.detalles,
-            precio: funkos.precio,
-            quanty: funkos.quanty
+            image: "/src/assets/" + funkos.img_path,
+            detalles: funkos.descripcion,
+            precio: funkos.valor,
+            quanty: 1
         }))
         setDataFunkos(dataFunkos)
     }

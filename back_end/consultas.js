@@ -11,9 +11,10 @@ const pool = new Pool({
 })
 
 const toHash = (data) => {
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(data, salt);
-    return hash;
+    return data;
+}
+const compareHashes = (a, b) => {
+    return a == b;
 }
 
 const createUser = async(userData) => {
@@ -44,7 +45,6 @@ const searchProductos = async(productId = null) => {
         select += "WHERE id = $1"
         result = await (pool.query(select, [productId]))
     }else{
-        console.log(productId);
         result = await (pool.query(select))
     }
     return result.rows
@@ -76,11 +76,13 @@ const createPedido = async(productosData, usuarioId) => {
 }
 
 const loginUser = async(userData) => {
-    const passwordHash = toHash(userData.password)
-    const values = [userData.email, passwordHash];
-    const select = "SELECT * FROM usuarios WHERE email = $1 AND password = $2;";
-    result = await pool.query(select, values)
-    return result.rowCount == 1
+    const select = "SELECT * FROM usuarios WHERE email = $1;";
+    let result = await(pool.query(select, [userData.email]))
+    if (result.rowCount != 1) return false
+    let fromDataBase = toHash(userData.password)
+    let fromUser = result.rows[0].password
+    let isEqual = compareHashes(fromDataBase, fromUser)
+    return isEqual
 }
 
 

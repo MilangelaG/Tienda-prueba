@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useContext } from "react";
 import { MyContext } from '../context/MyContext'
-
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,14 +17,19 @@ const Login = () => {
   };
 
   const iniciarSesion = async () => {
-    const api = "./src/data/UserTest.json";
-    const response = await fetch(api);
-    let dataUser = await response.json();
     const { email, password } = usuario;
     if (!email || !password) return alert("Email y password obligatorias");
-    alert("Usuario identificado con éxito 😀");
-    localStorage.setItem("token", dataUser.token);
-    setUser(email);
+    const api = "http://localhost:3001/login";
+    const response = await axios.post(api, {email: email, password: password})
+    let dataUser = await response.data;
+    if (dataUser) {
+      alert("Usuario identificado con éxito 😀");
+      localStorage.setItem("token", dataUser.token);
+      setUser(email);
+    }else{
+      alert("Ops no hemos podido identificarte");
+    }
+    
     navigate("/")
   };
 
