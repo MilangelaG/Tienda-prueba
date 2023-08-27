@@ -73,7 +73,8 @@ const loginUser = async(userData) => {
 
 const resetear = async() => {
     var data = fs.readFileSync('init.sql', 'utf8')
-    return await (pool.query(data))
+    await (pool.query(data))
+    return true
 }
 
 module.exports = { createUser, loginUser, searchUser, resetear, searchPedidos, createPedido }

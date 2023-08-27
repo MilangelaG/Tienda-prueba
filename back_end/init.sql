@@ -18,7 +18,7 @@ CREATE TABLE productos (
     img_path VARCHAR(250) NOT NULL,
     UNIQUE(nombre)
 );
-INSERT INTO productos VALUES (DEFAULT, 'Batman', 0, 'The Dark Knight', 1, '1x1x1', 'batman.jpg');
+INSERT INTO productos VALUES (DEFAULT, 'Batman', 333, 'The Dark Knight', 1, '1x1x1', 'batman.jpg');
 
 DROP TABLE IF EXISTS pedidos cascade;
 CREATE TABLE pedidos (
