@@ -1,8 +1,25 @@
-# React + Vite
+# Prerequisitos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Instalar la base de datos, hay un archivo `init.sql` dentro del backend para iniciarlo
+- El archivo `consultas.js` permite la configuracion a la base de datos
+- Instalar las dependencias en el front y back
+```
+  <!-- En ambos directorios -->
+  npm install 
+```
 
-Currently, two official plugins are available:
+# Como correr el proyecto?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Esta separado en front y back
+
+Para iniciar el back se usa el comando `node app.js`
+Para iniciar el front se usa el comando `npm run dev`
+
+# Correr los test
+
+Actualmente solo hay test para el back y prueban el happypath
+se corren con el comando `npm test`
+OJO: Que al correrlos se ejecutar el `init.sql` reseteando la base de datos
+
+
+
