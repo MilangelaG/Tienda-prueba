@@ -31,6 +31,37 @@ const searchUser = async(email) => {
     return result
 }
 
+const searchPedidos = async(userId) => {
+    const select = "SELECT * FROM pedidos WHERE usuario_id = $1";
+    var result = await pool.query(select, [userId])
+    return result.rows
+}
+
+const createPedido = async(productosData, usuarioId) => {
+    var descripcion = ""
+    var montoPagado = 0
+    var tiempoDeEnvio = 2 // Minimo 2 dias de envio
+    productosData.forEach(producto => {
+        descripcion += "Producto:" + producto.nombre + " Valor:" + producto.valor + "\n"
+        montoPagado += producto.valor * producto.cantidad
+        if (producto.tiempo_de_envio > tiempoDeEnvio){
+            tiempoDeEnvio = producto.tiempo_de_envio
+        }
+    })
+
+    var fecha = new Date();
+    fecha.setDate(fecha.getDate() + tiempoDeEnvio);
+    const values = [
+        montoPagado,
+        descripcion,
+        usuarioId,
+        fecha,
+    ];
+    const insert = "INSERT INTO pedidos VALUES (DEFAULT, $1, $2, $3, $4);"
+    result = await(pool.query(insert, values))
+    return result.rowCount == 1
+}
+
 const loginUser = async(userData) => {
     const passwordHash = toHash(userData.password)
     const values = [userData.email, passwordHash];
@@ -42,8 +73,7 @@ const loginUser = async(userData) => {
 
 const resetear = async() => {
     var data = fs.readFileSync('init.sql', 'utf8')
-    result = await (pool.query(data))
-    return true
+    return await (pool.query(data))
 }
 
-module.exports = { createUser, loginUser, searchUser, resetear }
+module.exports = { createUser, loginUser, searchUser, resetear, searchPedidos, createPedido }
