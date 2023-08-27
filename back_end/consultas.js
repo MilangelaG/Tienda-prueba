@@ -37,6 +37,19 @@ const searchPedidos = async(userId) => {
     return result.rows
 }
 
+const searchProductos = async(productId = null) => {
+    var select = "SELECT * FROM productos ";
+    var result = []
+    if (productId != null) { 
+        select += "WHERE id = $1"
+        result = await (pool.query(select, [productId]))
+    }else{
+        console.log(productId);
+        result = await (pool.query(select))
+    }
+    return result.rows
+}
+
 const createPedido = async(productosData, usuarioId) => {
     var descripcion = ""
     var montoPagado = 0
@@ -73,8 +86,8 @@ const loginUser = async(userData) => {
 
 const resetear = async() => {
     var data = fs.readFileSync('init.sql', 'utf8')
-    await (pool.query(data))
+    var result = await (pool.query(data))
     return true
 }
 
-module.exports = { createUser, loginUser, searchUser, resetear, searchPedidos, createPedido }
+module.exports = { createUser, loginUser, searchUser, resetear, searchPedidos, createPedido, searchProductos }
