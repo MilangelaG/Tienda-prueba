@@ -19,6 +19,7 @@ CREATE TABLE productos (
     UNIQUE(nombre)
 );
 INSERT INTO productos VALUES (DEFAULT, 'Batman', 333, 'The Dark Knight', 1, '1x1x1', 'batman.jpg');
+INSERT INTO productos VALUES (DEFAULT, 'Robin', 333, 'Excuse Me For Having A Life', 1, '1x1x1', 'robin.jpg');
 
 DROP TABLE IF EXISTS pedidos cascade;
 CREATE TABLE pedidos (

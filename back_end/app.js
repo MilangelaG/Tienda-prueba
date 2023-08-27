@@ -5,6 +5,7 @@ const {
     searchUser,
     createPedido,
     searchPedidos,
+    searchProductos,
 } = require('./consultas');
 
 const { 
@@ -16,11 +17,15 @@ const app = express();
 app.listen(3001, console.log("-- Server ON --"))
 
 app.use(express.json())
-app.get("/listar_productos", (req, res) => {
-    var productos = {
-        "id": 1,
-        "nombre": "Funko A"
-    }
+
+app.get("/listar_productos", async(_req, res) => {
+    var productos = await(searchProductos(null))
+    res.status(200).send(productos)
+})
+
+app.get("/listar_productos/:productId", async(req, res) => {
+    var productId = req.params.productId
+    var productos = await(searchProductos(productId))
     res.status(200).send(productos)
 })
 
