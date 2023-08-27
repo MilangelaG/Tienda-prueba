@@ -55,8 +55,8 @@ const createPedido = async(productosData, usuarioId) => {
     var montoPagado = 0
     var tiempoDeEnvio = 2 // Minimo 2 dias de envio
     productosData.forEach(producto => {
-        descripcion += "Producto:" + producto.nombre + " Valor:" + producto.valor + "\n"
-        montoPagado += producto.valor * producto.cantidad
+        descripcion += "Producto:" + producto.nombre + " Valor:" + producto.precio + "\n"
+        montoPagado += producto.precio * producto.quanty
         if (producto.tiempo_de_envio > tiempoDeEnvio){
             tiempoDeEnvio = producto.tiempo_de_envio
         }

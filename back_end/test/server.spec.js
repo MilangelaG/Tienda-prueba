@@ -23,7 +23,7 @@ describe("Operaciones CRUD de usuarios", () => {
     const resquest_buy = await request(server)
       .post('/crear_pedido')
       .set('Authorization', "Bearer " + resquest_login.body.token)  
-      .send([{'nombre': 'Batman', 'valor': '333', 'cantidad': 2, 'tiempo_de_envio': 3}])
+      .send([{'nombre': 'Batman', 'precio': '333', 'quanty': 2 }])
     expect(resquest_buy.statusCode).toEqual(201)
 
     const resquest_orders = await request(server)

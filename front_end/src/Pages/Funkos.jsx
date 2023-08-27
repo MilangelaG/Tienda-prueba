@@ -18,7 +18,6 @@ const Funkos = ({ funkos }) => {
         }else{
             setCart([...cart, funkos])
         }        
-        console.log(funkos)
     };
 
 

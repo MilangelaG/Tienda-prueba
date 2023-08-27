@@ -2,11 +2,32 @@ import React, { useContext } from 'react'
 import CarritoInfo from './CarritoInfo'
 import CarritoTotal from './CarritoTotal'
 import { MyContext } from '../context/MyContext'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from "axios";
 
 const Carrito = () => {
 
   const { cart } = useContext(MyContext)
+  const navigate = useNavigate()
 
+  const pagar = async () => {
+    let token = localStorage.getItem('token');
+    if (token == null){
+      alert("Primero inicia con tu cuenta")
+      return;
+    }
+    const api = "http://localhost:3001/crear_pedido";
+    var req = axios.create({
+      headers: { Authorization: "Bearer " + token }
+    })
+    const response = await(req.post(api, cart));
+    if (response.data.status == "exitoso") {
+      alert("Pedido creado 😀");
+      navigate("/Pedidos")
+    }else{
+      alert("Ops no hemos podido crear el pedido");
+    }
+  };
 
 
   return cart.length > 0 ? (
@@ -19,6 +40,9 @@ const Carrito = () => {
           <h4>Resumen del Pago</h4>
           <hr />
           <CarritoTotal />
+          <Link className="button" onClick={pagar}>
+              Pagar
+          </Link>
         </div>
       </div>
     </div>

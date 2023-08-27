@@ -7,6 +7,8 @@ CREATE TABLE usuarios (
     UNIQUE(email)
 );
 
+INSERT INTO usuarios VALUES (DEFAULT, 'ejemplo@ejemplo.cl', 'password', 'Lorem ipsum dolor sit amet, consectetur');
+
 DROP TABLE IF EXISTS productos cascade;
 CREATE TABLE productos (
     id SERIAL PRIMARY KEY,

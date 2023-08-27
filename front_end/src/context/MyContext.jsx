@@ -33,13 +33,21 @@ const DataProvider = ({ children }) => {
         return (user !== null && user.length > 0)
     }
 
+    
+
+    
     const getDataPedidos = async () => {
-        const response = await fetch(api_pedidos)
-        let pedidos = await response.json()
+        let token = localStorage.getItem('token');
+        const api = "http://localhost:3001/listar_pedidos";
+        var req = axios.create({
+          headers: { Authorization: "Bearer " + token}
+        })
+        const response = await(req.get(api));
+        let pedidos = response.data
 
         pedidos = pedidos.map((pedido) => ({
             id: pedido.id,
-            numero: pedido.numero,
+            numero: pedido.id,
             monto_pagado: pedido.monto_pagado,
             descripcion: pedido.descripcion,
             fecha_de_entrega: pedido.fecha_de_entrega

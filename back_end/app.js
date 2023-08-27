@@ -84,16 +84,14 @@ app.post("/crear_cuenta", (req, res) => {
 });
 
 app.post("/crear_pedido", async(req, res) => {
+    error = {"status_message": "No autorizado", "status": "fallido"}
     const auth = req.header("Authorization")
+    if (!auth) return res.status(400).send({error})
     const token = auth.split("Bearer ")[1]
     let email = await(verificarToken(token))
-    if (email == null) { 
-        error = {"status_message": "No autorizado", "status": "fallido"}
-        return res.status(401).send({error})
-    }
-    let data = req.body
+    if (email == null) return res.status(401).send({error})
     let user = await(searchUser(email));
-    let pedido = await(createPedido(data, user.id))
+    let pedido = await(createPedido(req.body, user.id))
     if (pedido) {
         response = {"status_message": "Todo un exito la operacion", "status": "exitoso"}
         return res.status(201).send(response);

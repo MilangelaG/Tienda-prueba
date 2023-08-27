@@ -33,7 +33,6 @@ const CrearCuenta = () => {
         }
         const response = await axios.post(api, form)
         let dataUser = await response.data;
-        console.log(dataUser)
         if (dataUser) {
           alert("Usuario identificado con éxito 😀");
         }else{
