@@ -2,11 +2,14 @@ const express = require('express');
 const { 
     createUser,
     loginUser,
-    searchUser
+    searchUser,
+    createPedido,
+    searchPedidos,
 } = require('./consultas');
 
 const { 
-    crearToken
+    crearToken,
+    verificarToken,
 } = require('./token');
 const app = express();
 
@@ -21,14 +24,18 @@ app.get("/listar_productos", (req, res) => {
     res.status(200).send(productos)
 })
 
-app.get("/listado_pedidos", (req, res) => {
-    pedidos = {
-        "pedido": {
-            "id": 1,
-            "monto_a_pagar": "3333 $"
-        }
+app.get("/listar_pedidos", async(req, res) => {
+    const auth = req.header("Authorization")
+    const token = auth.split("Bearer ")[1]
+    let email = await(verificarToken(token))
+    if (email == null) { 
+        error = {"status_message": "No autorizado", "status": "fallido"}
+        return res.status(401).send({error})
     }
-    res.status(200).send(pedidos)
+    let user = await searchUser(email)
+    let pedidos = await searchPedidos(user.id)
+    res.statusCode = 200;
+    res.send(pedidos)
 })
 
 app.post("/login", async (req, res) => {
@@ -70,12 +77,27 @@ app.post("/crear_cuenta", (req, res) => {
     }
 });
 
-app.post("/crear_pedido", (req, res) => {
-    response = {
-        "status_message": "Todo un exito la operacion",
-        "status": "exitoso",
+app.post("/crear_pedido", async(req, res) => {
+    const auth = req.header("Authorization")
+    const token = auth.split("Bearer ")[1]
+    let email = await(verificarToken(token))
+    if (email == null) { 
+        error = {"status_message": "No autorizado", "status": "fallido"}
+        return res.status(401).send({error})
     }
-    res.status(201).send(response)
+    let data = req.body
+    let user = await(searchUser(email));
+    let pedido = await(createPedido(data, user.id))
+    if (pedido) {
+        response = {"status_message": "Todo un exito la operacion", "status": "exitoso"}
+        return res.status(201).send(response);
+    }else{
+        response = {
+            "status_message": "Ops algo salio mal, revisa los datos enviados",
+            "status": "fallido",
+        }
+        return res.status(400).send(response)
+    }
 });
 
 app.use("*", (req, res) => {
