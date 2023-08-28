@@ -10,7 +10,7 @@ const DataProvider = ({ children }) => {
     const [user, setUser] = useState("");
     /* const [total, setTotal] = useState(0) */ //total
 
-    const mainUrl = "http://localhost:3001";
+    const mainUrl = "https://back-end-nml2.onrender.com";
     const getDataFunkos = async () => {
         const api = mainUrl + "/listar_productos";
         const response = await axios.get(api)
