@@ -2,10 +2,11 @@ import React from 'react'
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import { MyContext } from '../context/MyContext'
 
 const CrearCuenta = () => {
     const navigate = useNavigate();
-
+    const { mainUrl } = useContext(MyContext)
     const [formData, setFormData] = useState({
         correo: "",
         clave: "",
@@ -25,7 +26,8 @@ const CrearCuenta = () => {
     const crearCuenta = async () => {
         const { correo, clave, direccion} = formData;
         if (!correo || !clave || !direccion) return alert("Parece que faltan campos");
-        const api = "http://localhost:3001/crear_cuenta";
+
+        const api = mainUrl + "/crear_cuenta";
         let form = {
             email: correo,
             password: clave,

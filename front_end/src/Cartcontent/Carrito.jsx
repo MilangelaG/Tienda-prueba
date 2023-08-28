@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Carrito = () => {
 
-  const { cart } = useContext(MyContext)
+  const { cart, mainUrl } = useContext(MyContext)
   const navigate = useNavigate()
 
   const pagar = async () => {
@@ -16,7 +16,7 @@ const Carrito = () => {
       alert("Primero inicia con tu cuenta")
       return;
     }
-    const api = "http://localhost:3001/crear_pedido";
+    const api = mainUrl + "/crear_pedido";
     var req = axios.create({
       headers: { Authorization: "Bearer " + token }
     })

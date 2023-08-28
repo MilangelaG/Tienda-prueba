@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(MyContext)
+  const { setUser, mainUrl } = useContext(MyContext)
 
   const [usuario, setUsuarioLocal] = useState({ email: "", password: "" });
 
@@ -19,7 +19,7 @@ const Login = () => {
   const iniciarSesion = async () => {
     const { email, password } = usuario;
     if (!email || !password) return alert("Email y password obligatorias");
-    const api = "http://localhost:3001/login";
+    const api = mainUrl + "/login";
     const response = await axios.post(api, {email: email, password: password})
     let dataUser = await response.data;
     if (dataUser) {

@@ -10,12 +10,9 @@ const DataProvider = ({ children }) => {
     const [user, setUser] = useState("");
     /* const [total, setTotal] = useState(0) */ //total
 
-
-
-    const api = "http://localhost:3001/listar_productos";
-    const api_pedidos = "./src/data/DataPedidosTest.json";
-
+    const mainUrl = "http://localhost:3001";
     const getDataFunkos = async () => {
+        const api = mainUrl + "/listar_productos";
         const response = await axios.get(api)
         let dataFunkos = response.data
 
@@ -38,7 +35,7 @@ const DataProvider = ({ children }) => {
     
     const getDataPedidos = async () => {
         let token = localStorage.getItem('token');
-        const api = "http://localhost:3001/listar_pedidos";
+        const api = mainUrl + "/listar_pedidos";
         var req = axios.create({
           headers: { Authorization: "Bearer " + token}
         })
@@ -86,6 +83,7 @@ const DataProvider = ({ children }) => {
                 dataPedidos,
                 user,
                 setUser,
+                mainUrl,
                 loggedIn,
             }
         }>{children}</MyContext.Provider>
