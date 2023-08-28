@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000, // Cambia este número al puerto que desees
+    port: 10000,
     cors: {
       origin: false
     }
