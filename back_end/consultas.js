@@ -3,9 +3,10 @@ const bcrypt = require('bcryptjs');
 const fs = require('fs');
 
 const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: '123456',
+    host: 'postgres://vanegrr:zBwbwakgVWAsYW8BX43iFrUTVY9hDHEj@dpg-cjm1tkfv9s6c73daal30-a/tienda_online',
+    port: '5432',
+    user: 'vanegrr',
+    password: 'zBwbwakgVWAsYW8BX43iFrUTVY9hDHEj',
     database: 'tienda_online',
     allowExitOnIdle: true
 })
