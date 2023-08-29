@@ -1,14 +1,9 @@
 const { Pool } = require('pg')
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
+const {pool} = require ('./conexion')
 
-const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: '123456',
-    database: 'tienda_online',
-    allowExitOnIdle: true
-})
+
 
 const toHash = (data) => {
     return data;
