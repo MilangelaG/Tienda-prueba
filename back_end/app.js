@@ -8,6 +8,8 @@ const {
     searchProductos,
 } = require('./consultas');
 var cors = require('cors')
+
+const unauthorizedError = {"status_message": "No autorizado", "status": "fallido"}
 const { 
     crearToken,
     verificarToken,
@@ -17,6 +19,12 @@ const app = express();
 app.listen(3001, console.log("-- Server ON --"))
 
 app.use(cors())
+
+app.use((req, _res, next) => {
+    console.log("called: ", req.url)
+    next();
+})
+
 app.use(express.json())
 
 app.get("/listar_productos", async(_req, res) => {
@@ -31,14 +39,12 @@ app.get("/listar_productos/:productId", async(req, res) => {
 })
 
 app.get("/listar_pedidos", async(req, res) => {
-    const auth = req.header("Authorization")
-    const token = auth.split("Bearer ")[1]
+    const authorization = req.header("Authorization")
+    const token = authorization.split("Bearer ")[1]
     let email = await(verificarToken(token))
-    if (email == null) { 
-        error = {"status_message": "No autorizado", "status": "fallido"}
-        return res.status(401).send({error})
-    }
+    if (email == null) return res.status(401).send({unauthorizedError})
     let user = await searchUser(email)
+    if (user == null) return res.status(401).send({unauthorizedError})
     let pedidos = await searchPedidos(user.id)
     res.statusCode = 200;
     res.send(pedidos)

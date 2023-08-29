@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MyContext } from '../context/MyContext'
 import Pedido from '../Pages/Pedido'
@@ -6,7 +6,10 @@ import Table from 'react-bootstrap/Table'
 
 
 const Pedidos = () => {
-    const { dataPedidos } = useContext(MyContext)
+    const { dataPedidos, getDataPedidos } = useContext(MyContext)
+    useEffect(() => {
+        getDataPedidos()
+    }, [])
 
     return (
         <div className="container">
