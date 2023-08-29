@@ -86,6 +86,7 @@ const DataProvider = ({ children }) => {
                 user,
                 setUser,
                 loggedIn,
+                getDataPedidos,
             }
         }>{children}</MyContext.Provider>
     )
