@@ -1,15 +1,15 @@
-const { Pool } = require('pg')
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
-const {pool} = require ('./conexion')
+const pool = require ('./conexion')
 
 
 
 const toHash = (data) => {
-    return data;
+    return bcrypt.hashSync(data, 10);
 }
 const compareHashes = (a, b) => {
-    return a == b;
+    let result = bcrypt.compareSync(b, a)
+    return result;
 }
 
 const createUser = async(userData) => {
@@ -74,8 +74,8 @@ const loginUser = async(userData) => {
     const select = "SELECT * FROM usuarios WHERE email = $1;";
     let result = await(pool.query(select, [userData.email]))
     if (result.rowCount != 1) return false
-    let fromDataBase = toHash(userData.password)
-    let fromUser = result.rows[0].password
+    let fromDataBase = result.rows[0].password
+    let fromUser = userData.password
     let isEqual = compareHashes(fromDataBase, fromUser)
     return isEqual
 }
