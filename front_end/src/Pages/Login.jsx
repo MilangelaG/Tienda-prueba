@@ -15,21 +15,26 @@ const Login = () => {
     field[name] = value;
     setUsuarioLocal({ ...usuario, ...field });
   };
-
+  
   const iniciarSesion = async () => {
     const { email, password } = usuario;
     if (!email || !password) return alert("Email y password obligatorias");
     const api = mainUrl + "/login";
-    const response = await axios.post(api, {email: email, password: password})
-    let dataUser = await response.data;
-    if (dataUser) {
-      alert("Usuario identificado con éxito 😀");
-      localStorage.setItem("token", dataUser.token);
-      setUser(email);
-    }else{
-      alert("Ops no hemos podido identificarte");
+    try {
+      const response = await axios.post(api, {email: email, password: password})
+      let dataUser = await response.data;
+      if (dataUser) {
+        alert("Usuario identificado con éxito 😀");
+        localStorage.setItem("token", dataUser.token);
+        setUser(email);
+      }else{
+        alert("Ops no hemos podido identificarte");
+      }
     }
-    
+    catch (error) {
+        console.error(error);
+        alert("Ops no hemos podido identificarte");
+    }
     navigate("/")
   };
 

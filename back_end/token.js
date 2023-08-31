@@ -7,9 +7,15 @@ const crearToken = async(email) => {
 }
 
 const verificarToken = async(token) => {
-    const verify = jwt.verify(token, SECRET_KEY);
-    if (verify){ return verify.email }
-    return null;
+    try {
+        const verify = jwt.verify(token, SECRET_KEY);
+        if (verify){ return verify.email }
+        return null;
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 module.exports = { crearToken, verificarToken }

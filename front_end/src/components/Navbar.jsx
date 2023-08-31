@@ -37,6 +37,7 @@ const Navbar = () => {
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
+
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li className="nav-item">
@@ -63,14 +64,16 @@ const Navbar = () => {
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
+
                                 Cuenta
                             </Link>
                             <ul className="dropdown-menu">
                                 {loggedIn() ?
                                     <li>
                                         <Link className="dropdown-item" onClick={cerrarSesion}>
-                                            Cerrar sesión
+                                            Cerrar sesión                                    
                                         </Link>
+                                        
                                     </li>
                                     :
                                     <li>

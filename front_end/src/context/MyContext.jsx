@@ -54,7 +54,6 @@ const DataProvider = ({ children }) => {
 
     useEffect(() => {
         getDataFunkos()
-        getDataPedidos()
         setUser(localStorage.getItem('usuario'))
     }, [])
 
@@ -85,6 +84,7 @@ const DataProvider = ({ children }) => {
                 setUser,
                 mainUrl,
                 loggedIn,
+                getDataPedidos,
             }
         }>{children}</MyContext.Provider>
     )

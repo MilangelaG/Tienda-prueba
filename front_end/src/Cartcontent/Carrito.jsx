@@ -40,7 +40,7 @@ const Carrito = () => {
           <h4>Resumen del Pago</h4>
           <hr />
           <CarritoTotal />
-          <Link className="button" onClick={pagar}>
+          <Link className="btn btn-success" onClick={pagar}>
               Pagar
           </Link>
         </div>
