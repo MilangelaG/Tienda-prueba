@@ -21,5 +21,10 @@ Actualmente solo hay test para el back y prueban el happypath
 se corren con el comando `npm test`
 OJO: Que al correrlos se ejecutar el `init.sql` reseteando la base de datos
 
+# Produccion
 
+Esta deployado en Render:
+- Link front: https://front-end-vnxe.onrender.com
+- Link back: https://back-end-nml2.onrender.com
 
+La configuracion de la base de datos esta en el archivo `.env`
