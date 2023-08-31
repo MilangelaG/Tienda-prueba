@@ -20,8 +20,8 @@ CREATE TABLE productos (
     img_path VARCHAR(250) NOT NULL,
     UNIQUE(nombre)
 );
-INSERT INTO productos VALUES (DEFAULT, 'Batman', 333, 'The Dark Knight', 1, '1x1x1', 'batman.png');
-INSERT INTO productos VALUES (DEFAULT, 'Robin', 333, 'Excuse Me For Having A Life', 1, '1x1x1', 'robin.png');
+INSERT INTO productos VALUES (DEFAULT, 'Batman', 333, 'The Dark Knight', 1, '1x1x1', 'https://carpinchopop.cl/wp-content/uploads/2023/02/1000007647.jpg');
+INSERT INTO productos VALUES (DEFAULT, 'Robin', 333, 'Excuse Me For Having A Life', 1, '1x1x1', 'https://carpinchopop.cl/wp-content/uploads/2023/06/1000072865-768x768.jpg');
 
 DROP TABLE IF EXISTS pedidos cascade;
 CREATE TABLE pedidos (

@@ -19,7 +19,7 @@ const DataProvider = ({ children }) => {
         dataFunkos = dataFunkos.map((funkos) => ({
             id: funkos.id,
             nombre: funkos.nombre,
-            image: "/src/assets/" + funkos.img_path,
+            image: funkos.img_path,
             detalles: funkos.descripcion,
             precio: funkos.valor,
             quanty: 1
