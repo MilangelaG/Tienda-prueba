@@ -110,8 +110,54 @@ app.post("/crear_pedido", async(req, res) => {
     }
 });
 
+
 app.use("*", (req, res) => {
     res.status(404).send({ message: "Not found" })
 })
+
+/* app.post("/agregar_producto", async (req, res) => {
+    const error = { "status_message": "No autorizado", "status": "fallido" };
+    const auth = req.header("Authorization");
+  
+    if (!auth) return res.status(400).send({ error });
+  
+    const token = auth.split("Bearer ")[1];
+    const email = await verificarToken(token);
+  
+    if (email == null) return res.status(401).send({ error });
+  
+    const nuevoProducto = req.body;
+  
+    try {
+      const query = `
+        INSERT INTO productos (nombre,valor, descripcion, img_path )
+        VALUES ($1, $2, $3, $4)
+      `;
+  
+      const values = [
+        nuevoProducto.nombre,
+        nuevoProducto.valor,
+        nuevoProducto.descripcion,
+        nuevoProducto.img_path       
+      ];
+  
+      await pool.query(query, values);
+  
+      const response = {
+        "status_message": "Producto agregado exitosamente",
+        "status": "exitoso"
+      };
+      res.status(201).send(response);
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+      const response = {
+        "status_message": "Error al agregar el producto",
+        "status": "fallido"
+      };
+      res.status(500).send(response);
+    }
+  }); */
+
+
 
 module.exports = app

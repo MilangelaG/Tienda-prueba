@@ -9,6 +9,7 @@ import Login from './Pages/Login';
 import CrearCuenta from './Pages/CrearCuenta';
 import Pedidos from './Pages/Pedidos';
 import DataProvider from './context/MyContext';
+/* import ComponenteDeIngreso from './components/ComponenteDeIngreso'; */
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/CrearCuenta" element={<CrearCuenta />} />
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path='*' element="no encontrado" />
+       {/*  <Route path='/vender' element={<ComponenteDeIngreso/>}/> */}
       </Routes>
 
 
